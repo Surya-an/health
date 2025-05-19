@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Health Dashboard</title>
+<link rel ="stylesheet" href="style.css">
+<script src="script.js"></script>
+</head>
+<body>
+  <aside id="sidebar" role="navigation" aria-label="Main navigation">
+    <h1>Health Dashboard</h1>
+    <nav>
+      <button class="active" data-target="mood-tracker">Mood Tracker</button>
+      <button data-target="water-tracker">Water Intake</button>
+      <button data-target="breathing">Breathing</button>
+      <button data-target="meal-log">Meal Log</button>
+      <button data-target="sleep-tracker">Sleep Tracker</button>
+      <button data-target="fitness-routine">Fitness Routine</button>
+      <button data-target="stretch-sequence">Stretch Sequence</button>
+      <button data-target="mental-journal">Mental Health Journal</button>
+      <button data-target="weight-tracker">Weight Tracker</button>
+      <button data-target="health-dashboard">Health Dashboard</button>
+    </nav>
+  </aside>
+
+  <main id="content">
+    <!-- Mood Tracker -->
+    <section id="mood-tracker" class="active" aria-label="Mood Tracker Section">
+      <h2>Mood Tracker</h2>
+      <p>Select your mood for today:</p>
+      <div id="mood-buttons" role="radiogroup" aria-label="Mood selection">
+        <button aria-pressed="false" data-mood="happy" title="Happy">😊</button>
+        <button aria-pressed="false" data-mood="sad" title="Sad">😢</button>
+        <button aria-pressed="false" data-mood="angry" title="Angry">😠</button>
+        <button aria-pressed="false" data-mood="neutral" title="Neutral">😐</button>
+        <button aria-pressed="false" data-mood="excited" title="Excited">🤩</button>
+      </div>
+      <p>Monthly Mood Calendar (click a day to set mood):</p>
+      <div id="mood-calendar" role="grid" aria-label="Mood calendar"></div>
+    </section>
+
+    <!-- Water Intake -->
+    <section id="water-tracker" aria-label="Water Intake Tracker Section">
+      <h2>Water Intake Tracker</h2>
+      <label for="water-goal-input">Daily Goal (cups): </label>
+      <input type="number" id="water-goal-input" min="1" max="20" value="8" aria-describedby="water-status" />
+      <div id="water-cups" role="group" aria-label="Water intake cups"></div>
+      <div id="water-status" aria-live="polite">0 / 8 cups consumed</div>
+    </section>
+
+    <!-- Breathing Animation -->
+    <section id="breathing" aria-label="Breathing Exercise Section">
+      <h2>Breathing Exercise</h2>
+      <div id="breathing-container">
+        <div id="breathing-circle" aria-live="polite"></div>
+        <div id="breathing-text" aria-live="polite">Inhale</div>
+      </div>
+    </section>
+
+    <!-- Meal Log -->
+    <section id="meal-log" aria-label="Meal Log Section">
+      <h2>Meal Log</h2>
+      <form id="meal-log-form" aria-label="Meal log form">
+        <input type="text" id="meal-name" placeholder="Meal name" required aria-required="true" />
+        <input type="number" id="meal-calories" placeholder="Calories" min="0" step="1" required aria-required="true" />
+        <button type="submit">Add Meal</button>
+      </form>
+      <ul id="meal-list" aria-live="polite"></ul>
+      <p id="meal-total">Total calories today: 0</p>
+    </section>
+
+    <!-- Sleep Tracker -->
+    <section id="sleep-tracker" aria-label="Sleep Tracker Section">
+      <h2>Sleep Tracker</h2>
+      <form id="sleep-log-form" aria-label="Sleep log form">
+        <input type="date" id="sleep-date" value="" required aria-required="true" />
+        <input type="number" id="sleep-hours" placeholder="Hours slept" min="0" max="24" step="0.1" required aria-required="true" />
+        <button type="submit">Log Sleep</button>
+      </form>
+      <div id="sleep-chart-container">
+        <canvas id="sleep-chart" width="600" height="300" aria-label="Sleep hours chart"></canvas>
+      </div>
+    </section>
+
+    <!-- Fitness Routine -->
+    <section id="fitness-routine" aria-label="Fitness Routine Section">
+      <h2>Fitness Routine Checklist</h2>
+      <div id="fitness-checklist">
+        <ul>
+          <li>
+            <label><input type="checkbox" data-exercise="pushups" /> Push-ups</label>
+            <button class="timer-btn" data-action="start" data-exercise="pushups">Start</button>
+            <span class="timer-display" id="timer-pushups">00:00</span>
+          </li>
+          <li>
+            <label><input type="checkbox" data-exercise="squats" /> Squats</label>
+            <button class="timer-btn" data-action="start" data-exercise="squats">Start</button>
+            <span class="timer-display" id="timer-squats">00:00</span>
+          </li>
+          <li>
+            <label><input type="checkbox" data-exercise="planks" /> Planks</label>
+            <button class="timer-btn" data-action="start" data-exercise="planks">Start</button>
+            <span class="timer-display" id="timer-planks">00:00</span>
+          </li>
+          <li>
+            <label><input type="checkbox" data-exercise="lunges" /> Lunges</label>
+            <button class="timer-btn" data-action="start" data-exercise="lunges">Start</button>
+            <span class="timer-display" id="timer-lunges">00:00</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Stretch Sequence -->
+    <section id="stretch-sequence" aria-label="Interactive Stretch Sequence Section">
+      <h2>Interactive Stretch Sequence</h2>
+      <p>Drag to reorder stretches. Click a stretch to start its timer.</p>
+      <ul id="stretch-list" aria-label="Stretch exercises" tabindex="0">
+        <li draggable="true" data-duration="30">Neck Stretch<div class="visual-timer"><div></div></div></li>
+        <li draggable="true" data-duration="45">Shoulder Roll<div class="visual-timer"><div></div></div></li>
+        <li draggable="true" data-duration="40">Hamstring Stretch<div class="visual-timer"><div></div></div></li>
+        <li draggable="true" data-duration="60">Quad Stretch<div class="visual-timer"><div></div></div></li>
+      </ul>
+    </section>
+
+    <!-- Mental Health Journal -->
+    <section id="mental-journal" aria-label="Mental Health Journal Section">
+      <h2>Weekly Mental Health Journal</h2>
+      <form id="journal-entry-form" aria-label="Journal entry form">
+        <textarea id="journal-text" placeholder="Write your journal entry..." required aria-required="true"></textarea>
+        <input type="text" id="journal-tags" placeholder="Tags (comma-separated)" aria-label="Journal tags" />
+        <button type="submit">Add Entry</button>
+      </form>
+      <div id="journal-entries" aria-live="polite"></div>
+      <div id="journal-mood-chart-container">
+        <canvas id="journal-mood-chart" width="700" height="300" aria-label="Mood chart for journal"></canvas>
+      </div>
+    </section>
+
+    <!-- Weight Tracker -->
+    <section id="weight-tracker" aria-label="Weight Tracking Section">
+      <h2>Weight Tracking Dashboard</h2>
+      <form id="weight-tracker-form" aria-label="Weight tracker form">
+        <input type="date" id="weight-date" required aria-required="true" />
+        <input type="number" id="weight-value" placeholder="Weight (kg)" step="0.1" min="1" required aria-required="true" />
+        <button type="submit">Add Weight</button>
+      </form>
+      <div id="weight-chart-container">
+        <canvas id="weight-chart" width="700" height="300" aria-label="Weight trend chart"></canvas>
+      </div>
+    </section>
+
+    <!-- Health Dashboard -->
+    <section id="health-dashboard" aria-label="Health Dashboard Section">
+      <h2>Health Dashboard (Wearable Sync Simulation)</h2>
+      <p id="wearable-sync-status" aria-live="polite">Sync Status: Not Connected</p>
+      <button id="sync-button" aria-label="Sync wearable data">Sync Now</button>
+      <div id="health-charts">
+        <canvas id="health-heartbeat-chart" width="700" height="200" aria-label="Heart rate chart"></canvas>
+        <canvas id="health-steps-chart" width="700" height="200" aria-label="Steps chart"></canvas>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>
+
+
+      

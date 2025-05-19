@@ -1,0 +1,483 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    background: #eed1f5;
+    color: #333;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Layout */
+  #sidebar {
+    width: 240px;
+    background: #283e4a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+  #sidebar h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    user-select: none;
+  }
+  nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  nav button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    transition: background 0.3s, border-color 0.3s;
+    outline-offset: 2px;
+  }
+  nav button:hover, nav button.active {
+    background: #3f5564;
+    border-left: 4px solid #00b894;
+  }
+  nav button:focus {
+    outline: 3px solid #55efc4;
+  }
+
+  #content {
+    flex: 1;
+    padding: 1rem 2rem 2rem 2rem;
+    overflow-y: auto;
+  }
+
+  section {
+    display: none;
+  }
+  section.active {
+    display: block;
+  }
+
+  /* Section Headers */
+  section h2 {
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #00b894;
+    padding-bottom: 5px;
+  }
+
+  /* Mood Tracker */
+  #mood-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 1rem;
+  }
+  #mood-buttons button {
+    font-size: 2.5rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 8px 14px;
+    transition: border-color 0.3s;
+    background: white;
+  }
+  #mood-buttons button.selected {
+    border-color: #00b894;
+    box-shadow: 0 0 8px #00b894aa;
+  }
+
+  #mood-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+  #mood-calendar div {
+    aspect-ratio: 1 / 1;
+    background: #cddde1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    user-select: none;
+    transition: background 0.3s;
+  }
+  #mood-calendar div[data-mood="happy"] {
+    background: #00b894;
+    color: white;
+  }
+  #mood-calendar div[data-mood="sad"] {
+    background: #0984e3;
+    color: white;
+  }
+  #mood-calendar div[data-mood="angry"] {
+    background: #d63031;
+    color: white;
+  }
+  #mood-calendar div[data-mood="neutral"] {
+    background: #b2bec3;
+    color: white;
+  }
+  #mood-calendar div[data-mood="excited"] {
+    background: #fd79a8;
+    color: white;
+  }
+
+  /* Water Intake tracker */
+  #water-tracker {
+    margin-bottom: 1rem;
+  }
+  #water-cups {
+    display: flex;
+    gap: 10px;
+    margin: 1rem 0;
+  }
+  #water-cups button {
+    background: #dfe6e9;
+    border: none;
+    border-radius: 8px;
+    width: 40px;
+    height: 60px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.3s;
+  }
+  #water-cups button.filled {
+    background: #00b894;
+  }
+  #water-cups button::after {
+    content: "🥤";
+    position: absolute;
+    font-size: 1.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  #water-goal-input {
+    width: 60px;
+    font-size: 1rem;
+    padding: 4px 8px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+  }
+  #water-status {
+    font-weight: 600;
+    margin-top: 0.5rem;
+    color: #0984e3;
+  }
+
+  /* Breathing Animation */
+  #breathing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #breathing-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00b894 0%, #55efc4 100%);
+    animation: breathe 8s infinite alternate ease-in-out;
+    box-shadow: 0 0 20px #00b89477;
+    margin-bottom: 1rem;
+  }
+  #breathing-text {
+    font-weight: 700;
+    font-size: 1.2rem;
+    user-select: none;
+    height: 30px;
+  }
+  @keyframes breathe {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+  }
+
+  /* Meal Log */
+  #meal-log-form {
+    display: flex;
+    gap: 10px;
+    max-width: 480px;
+    margin-bottom: 1rem;
+  }
+  #meal-log-form input[type="text"],
+  #meal-log-form input[type="number"] {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+  }
+  #meal-log-form button {
+    background: #00b894;
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  #meal-log-form button:hover {
+    background: #019875;
+  }
+  #meal-list {
+    max-width: 480px;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 10px;
+  }
+  #meal-list li {
+    background: white;
+    box-shadow: 0 0 8px #00000011;
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+  }
+  #meal-total {
+    font-weight: 700;
+  }
+
+  /* Sleep Tracker */
+  #sleep-log-form {
+    display: flex;
+    gap: 10px;
+    max-width: 350px;
+    margin-bottom: 1rem;
+  }
+  #sleep-log-form input[type="date"],
+  #sleep-log-form input[type="number"] {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+  }
+  #sleep-log-form button {
+    background: #0984e3;
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  #sleep-log-form button:hover {
+    background: #0675d8;
+  }
+  #sleep-chart-container {
+    max-width: 600px;
+    margin-top: 1rem;
+  }
+
+  /* Fitness Routine */
+  #fitness-checklist {
+    max-width: 600px;
+  }
+  #fitness-checklist ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  #fitness-checklist li {
+    background: white;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 8px #00000011;
+  }
+  #fitness-checklist label {
+    cursor: pointer;
+    flex: 1;
+    user-select: none;
+  }
+  .timer-btn {
+    background: #00b894;
+    border: none;
+    color: white;
+    padding: 4px 10px;
+    margin-left: 8px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .timer-btn:hover {
+    background: #019875;
+  }
+  .timer-display {
+    min-width: 48px;
+    text-align: center;
+    font-family: monospace;
+    font-weight: 700;
+  }
+
+  /* Stretch sequence */
+  #stretch-sequence {
+    max-width: 600px;
+  }
+  #stretch-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  #stretch-list li {
+    background: white;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    padding: 10px 12px;
+    box-shadow: 0 0 8px #00000011;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+  }
+  #stretch-list li.dragging {
+    opacity: 0.6;
+  }
+  .visual-timer {
+    background: #00b894;
+    height: 8px;
+    border-radius: 4px;
+    margin-left: 12px;
+    flex-shrink: 0;
+    width: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .visual-timer > div {
+    background: #55efc4;
+    height: 100%;
+    width: 0;
+    transition: width 0.2s linear;
+  }
+
+  /* Mental Health Journal */
+  #journal-entry-form {
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  #journal-entry-form textarea {
+    font-size: 1rem;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+    min-height: 80px;
+    resize: vertical;
+  }
+  #journal-entry-form input[type="text"] {
+    padding: 6px 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+  }
+  #journal-entry-form button {
+    align-self: flex-start;
+    background: #fd79a8;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  #journal-entry-form button:hover {
+    background: #e3497e;
+  }
+  #journal-entries {
+    max-width: 700px;
+    margin-bottom: 1rem;
+  }
+  .entry {
+    background: white;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    box-shadow: 0 0 6px #00000022;
+  }
+  .entry .tags {
+    margin-top: 6px;
+    font-size: 0.875rem;
+    color: #fd79a8;
+  }
+
+  /* Mood chart for journal */
+  #journal-mood-chart-container {
+    max-width: 700px;
+    margin-top: 1rem;
+  }
+
+  /* Weight Tracking */
+  #weight-tracker-form {
+    max-width: 400px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  #weight-tracker-form input[type="date"],
+  #weight-tracker-form input[type="number"] {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+  }
+  #weight-tracker-form button {
+    background: #6c5ce7;
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  #weight-tracker-form button:hover {
+    background: #553bbb;
+  }
+  #weight-chart-container {
+    max-width: 700px;
+    margin-top: 1rem;
+  }
+
+  /* Health Dashboard */
+  #health-dashboard {
+    max-width: 700px;
+  }
+  #wearable-sync-status {
+    font-weight: 700;
+    color: #0984e3;
+  }
+  #health-charts {
+    margin-top: 1rem;
+  }
+  #health-charts canvas {
+    max-width: 700px;
+    margin-bottom: 1rem;
+  }
